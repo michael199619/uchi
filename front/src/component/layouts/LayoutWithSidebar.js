@@ -1,19 +1,25 @@
 import React from "react";
-import { MainLoyoutStyled, Main, Sidebar } from './styled';
+import { MainLoyoutStyled } from './styled';
+import Header from "../Header";
 
 const LayoutWithSidebar = ({ main, sidebar }) => {
     return (
         <MainLoyoutStyled>
             {sidebar && (
-                <Sidebar>
+                <aside>
                     {sidebar}
-                </Sidebar>
+                </aside>
             )}
-            {main && (
-                <Main>
-                    {main}
-                </Main>
-            )}
+
+            <div>
+                <Header />
+                {main && (
+                    <main>
+                        {main}
+                    </main>
+                )}
+            </div>
+
         </MainLoyoutStyled>
     )
 };

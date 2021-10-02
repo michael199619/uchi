@@ -1,16 +1,21 @@
-import { createBrowserHistory } from "history";
-import {Router} from "react-router";
+import {Route, Switch} from "react-router";
 import 'normalize.css';
 import './App.css'
-import Main from "./pages/Main";
-
-const history = createBrowserHistory();
+import Theme from "./pages/Theme";
+import Home from "./pages/Home";
+import Sidebar from "./component/Sidebar";
+import LayoutWithtSidebar from "./component/layouts/LayoutWithSidebar";
 
 function App() {
+    const Content = () => (
+        <Switch>
+            <Route path="/theme/:id" component={Theme} />
+            <Route path="/" component={Home} />
+        </Switch>
+    )
+
   return (
-      <Router history={history}>
-        <Main />
-      </Router>
+      <LayoutWithtSidebar sidebar={ <Sidebar /> } main={ <Content /> } />
   );
 }
 

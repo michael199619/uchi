@@ -7,22 +7,22 @@ const Sidebar = () => {
             <Logo>ЛОГО</Logo>
             <Menu>
                 <MenuItem>
-                    <MenuItemLink>
+                    <MenuItemLink to={'#'}>
                         расписание
                     </MenuItemLink>
                 </MenuItem>
                 <MenuItem>
-                    <MenuItemLink>
+                    <MenuItemLink to={'#'}>
                         сообщения
                     </MenuItemLink>
                 </MenuItem>
                 <MenuItem>
-                    <MenuItemLink>
+                    <MenuItemLink to={'#'}>
                         справочник
                     </MenuItemLink>
                 </MenuItem>
                 <MenuItem>
-                    <MenuItemLink>
+                    <MenuItemLink to={'#'}>
                         настройки
                     </MenuItemLink>
                 </MenuItem>
