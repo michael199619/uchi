@@ -8,13 +8,13 @@ import Modal from "../../component/Modal";
 import CardMini from "../../component/ThemeCard/CardMini";
 import {Avatar} from "../../component/Header/styled";
 import {useStore} from "effector-react";
-import {$categories, $selectedSubjects, $subjects, fetchSubjects, reset} from "../../models";
-import {$selectedUsers, $users, fetchUsers, selectedUsers, selectUser, unSelectUser} from "../../models/users";
+import {$selectedSubjects, $subjects, $types, fetchSubjects, reset} from "../../models";
+import {$selectedUsers, $users, fetchUsers, selectUser, unSelectUser} from "../../models/users";
 
 
 
 const MainContent = () => {
-    const [selected, setSelected] = useState(true);
+    const [typesParams, setTypesParams] = useState([]);
     const [message, setMessage] = useState('');
     const [params, setParams] = useState('');
     const [q, setQ] = useState('');
@@ -23,6 +23,7 @@ const MainContent = () => {
     const subjects = useStore($subjects);
     const users = useStore($users);
     const selectedUsers = useStore($selectedUsers);
+    const types =useStore($types);
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -47,10 +48,18 @@ const MainContent = () => {
     }
 
     useEffect(() => {
+
         setParams(window.location.search);
-        fetchSubjects(params);
+        console.log(types.join('&categoriesIds='))
+        console.log(types)
+        const typesParam = [];
+        types.forEach(type => typesParam.push('&categoriesIds=' + type.id))
+        console.log(typesParam)
+        if (params && typesParam) {
+            fetchSubjects(params + typesParam.join(''));
+        }
         fetchUsers();
-    }, [params])
+    }, [params, types])
     useEffect(() => {
         params && params.replace('?', '').split('&').forEach(
             function(e){
@@ -66,7 +75,7 @@ const MainContent = () => {
         <Main>
             <Title marginBottom={25}>{q}</Title>
             <Filters filters={filters} />
-            { subjects.map(category => (
+            { subjects.map((category, index) => (
                 <Categories title={category.name} key={category.id} themes={category.items} />
             )) }
             <ShareButton onClick={() => setActive(true)}>Отправить материал студенту</ShareButton>
@@ -79,7 +88,7 @@ const MainContent = () => {
                     <StudentList>
                         {users.map(user => (
                             <StudentItem onClick={() => handleUserClick(user.id)} key={user.id} selected={selectedUsers.includes(user.id)}>
-                                <Avatar style={{ backgroundImage: user.avatar }} />
+                                <Avatar style={{ backgroundImage: 'url(' + user.avatar + ')' }} />
                                 <Name>{user.name}</Name>
                             </StudentItem>
                             ))
@@ -88,7 +97,7 @@ const MainContent = () => {
                 </ChooseStudents>
                 <AddComment onSubmit={handleSubmit}>
                     <Title marginBottom={16}>Добавить комментарий</Title>
-                    <Textarea placeholder={'Напишите здесь пожелания по изучению материалов'} onChange={handleText}>{message}</Textarea>
+                    <Textarea placeholder={'Напишите здесь пожелания по изучению материалов'} onChange={handleText} value={message} />
                     <SendButton>Отправить</SendButton>
                 </AddComment>
 
