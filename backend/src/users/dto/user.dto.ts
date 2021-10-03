@@ -29,4 +29,10 @@ export class UserDto {
     @IsOptional()
     @Expose()
     roleId: number;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    @Expose()
+    avatar: string;
 }

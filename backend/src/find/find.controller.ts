@@ -28,4 +28,9 @@ export class FindController {
   getCategories() {
     return this.findService.getCategories()
   }
+
+  @Delete('categories')
+  deleteCategories(@Query('id') id: number) {
+    return this.findService.removeCategories(id)
+  }
 }

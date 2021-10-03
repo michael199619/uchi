@@ -17,6 +17,16 @@ export class Categories extends BaseEntity {
   id: number;
 
   @Column({
+    type: 'varchar', nullable: true
+  })
+  public fileType: string;
+
+  @Column({
+    type: 'varchar', nullable: true
+  })
+  public searchType: string;
+
+  @Column({
     type: 'varchar'
   })
   public name: string;

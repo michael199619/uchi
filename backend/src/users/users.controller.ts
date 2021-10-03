@@ -9,19 +9,19 @@ export class UsersController {
   constructor(private usersService: UsersService) {
   }
 
-  @Post('')
-  async getPersons() {
-    return await this.usersService.getUsers();
+  @Get('roles')
+  async getRoles() {
+    return await this.usersService.getRoles();
+  }
+
+  @Get()
+  async getUsers(@Query('role') role?: string) {
+    return await this.usersService.getUsers(role);
   }
 
   @Get(':id')
   async getUserById(@Param('id') id: number) {
     return await this.usersService.getUserById(id);
-  }
-
-  @Get('roles')
-  async getRoles() {
-    return await this.usersService.getRoles();
   }
 
   @Post('')

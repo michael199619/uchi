@@ -21,7 +21,7 @@ export class UsersService {
         await this.uRepo.delete(id);
     }
 
-    public async getUsers(): Promise<User[]> {
+    public async getUsers(role?: string): Promise<User[]> {
         return await this.uRepo.find();
     }
 

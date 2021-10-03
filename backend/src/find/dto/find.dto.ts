@@ -1,4 +1,5 @@
 import {
+    IsInt, IsNumber,
     IsOptional,
     IsString
 } from 'class-validator';
@@ -12,4 +13,10 @@ export class FindDto {
     @IsOptional()
     @Expose()
     q: string;
+
+    @ApiProperty({type: 'string', isArray: true})
+    @IsString({each: true})
+    @IsOptional()
+    @Expose()
+    tagIds: number[];
 }

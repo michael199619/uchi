@@ -17,4 +17,16 @@ export class CategoriesDto {
     @IsOptional()
     @Expose()
     tags: string[];
+
+    @ApiProperty({type: 'string'})
+    @IsString()
+    @IsOptional()
+    @Expose()
+    fileType?: string;
+
+    @ApiProperty({type: 'string'})
+    @IsString()
+    @IsOptional()
+    @Expose()
+    searchType?: string;
 }
