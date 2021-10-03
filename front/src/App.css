@@ -1,0 +1,13 @@
+html, body {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: sans-serif;
+    background-color: #f1f4f9;
+    color: #000000;
+    min-height: 100%;
+}
+
+
+button {
+    cursor: pointer;
+}
