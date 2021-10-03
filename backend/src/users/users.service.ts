@@ -25,8 +25,8 @@ export class UsersService {
         const users = this.entityManager.createQueryBuilder(User, 'user');
 
         if (role) {
-            users.leftJoinAndSelect(Role, 'role', 'roleId = id')
-                .where('role.id = :role', {role});
+            users.leftJoinAndSelect(Role, 'role', '"roleId" = user.id')
+                .where('role.name = :role', {role});
         }
 
         return await users.getMany();

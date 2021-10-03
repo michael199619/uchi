@@ -19,15 +19,6 @@ import {ApiTags} from "@nestjs/swagger";
 export class LoginController {
   constructor(private authService: AuthService) {}
 
-  /**
-   * @api {post} /auth/login Login by email and password
-   * @apiName Login
-   * @apiGroup Auth
-   *
-   * @apiParam {String} email
-   * @apiParam {String} password
-   *
-   */
   @UseGuards(LocalAuthGuard)
   @Post()
   async login(

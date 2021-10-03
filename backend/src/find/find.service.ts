@@ -41,6 +41,10 @@ export class FindService {
                url = `${url}&fileType=${e.fileType}`;
            }
 
+           if (e.linkSite) {
+               url = `${url}&linkSite=${e.linkSite}`;
+           }
+
            if (e.searchType) {
                url = `${url}&searchType=${e.searchType}`;
            }
@@ -57,6 +61,7 @@ export class FindService {
                        linkTitle: item.htmlTitle,
                        snipet: item.snipet,
                        pagemap: item.pagemap,
+                       videoobject: item.videoobject,
                        rating: 0,
                        images: (item.cse_image || []).map(({src}) => src)
                    }))

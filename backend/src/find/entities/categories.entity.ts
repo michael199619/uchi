@@ -27,20 +27,19 @@ export class Categories extends BaseEntity {
   public searchType: string;
 
   @Column({
+    type: 'varchar', nullable: true
+  })
+  public linkSite: string;
+
+  @Column({
     type: 'varchar'
   })
   public name: string;
-
-  @Column({
-    type: 'varchar', array: true
-  })
-  public tags: string[];
 
   toJSON() {
     return {
       id: this.id,
       name: this.name,
-      tags: this.tags,
       createdAt: this.createdAt,
     };
   }

@@ -11,15 +11,7 @@ export class RegisterController {
     private userService: UsersService,
   ) {}
 
-  /**
-   * @api {get} /auth/getKey
-   * @apiName Register
-   * @apiGroup Auth
-   *
-   * @apiSuccess {object} -
-   * @apiSuccess {string} -.key
-   *
-   */
+
   @Get('getKey')
   async register() {
     return {

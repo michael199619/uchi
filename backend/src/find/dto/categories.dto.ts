@@ -22,5 +22,11 @@ export class CategoriesDto {
     @IsString()
     @IsOptional()
     @Expose()
+    linkSite?: string;
+
+    @ApiProperty({type: 'string'})
+    @IsString()
+    @IsOptional()
+    @Expose()
     searchType?: string;
 }
