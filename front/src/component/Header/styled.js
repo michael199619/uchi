@@ -9,7 +9,7 @@ export const HeaderStyled = styled.header`
     margin-bottom: 60px;
 `;
 
-export const Search = styled.div`
+export const Search = styled.form`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,4 +44,7 @@ export const Avatar = styled.div`
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 `;

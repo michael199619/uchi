@@ -4,7 +4,7 @@ import Filters from "../../component/Filters";
 import AlphabetFilter from "../../component/AlphabetFilter";
 import Sorting from "../../component/Sorting";
 import SubjectCard from "../../component/SubjectCard";
-import {fetchSubjects, $subjects} from "../../models";
+import {fetchSubjects, $subjects, fetchCategories, $categories} from "../../models";
 import {useStore} from "effector-react";
 
 export const filters = [
@@ -29,9 +29,9 @@ export const filters = [
 
 
 const Home = () => {
-
+    const categories = useStore($categories);
     useEffect(() => {
-        fetchSubjects();
+        fetchCategories();
     }, []);
 
     const subjects = useStore($subjects)
@@ -50,8 +50,8 @@ const Home = () => {
                 </SortingCell>
             </HeaderStyled>
             <BodyStyled>
-                { subjects.map(subject => (
-                    <SubjectCard key={subject.id} name={subject.name} themes={subject.themes} />
+                { categories.map(category => (
+                    <SubjectCard key={category.id} name={category.name} categoryId={category.id} tags={category.tags} />
                 )) }
             </BodyStyled>
         </>

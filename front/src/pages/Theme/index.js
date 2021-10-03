@@ -8,24 +8,64 @@ import Modal from "../../component/Modal";
 import CardMini from "../../component/ThemeCard/CardMini";
 import {Avatar} from "../../component/Header/styled";
 import {useStore} from "effector-react";
-import {$categories, $selectedSubjects, fetchCategories} from "../../models";
+import {$categories, $selectedSubjects, $subjects, fetchSubjects} from "../../models";
+import {$selectedUsers, $users, fetchUsers, selectedUsers, selectUser, unSelectUser} from "../../models/users";
 
 
 
 const MainContent = () => {
+    const [selected, setSelected] = useState(true);
+    const [message, setMessage] = useState('');
+    const [params, setParams] = useState('');
+    const [q, setQ] = useState('');
     const [active, setActive] = useState(false);
     const selectedSubjects = useStore($selectedSubjects);
-    const categories = useStore($categories);
+    const subjects = useStore($subjects);
+    const users = useStore($users);
+    const selectedUsers = useStore($selectedUsers);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      alert('Данные отправленны!')
+    }
+
+    const handleText = (e) => {
+      setMessage(e.target.value);
+    }
+
+    const handleUserClick = (id) => {
+        console.log(id);
+        selectedUsers.includes(id);
+      if (selectedUsers.includes(id)) {
+          unSelectUser(id)
+      } else {
+          selectUser(id)
+      }
+    }
+
     useEffect(() => {
-        fetchCategories();
-    }, [])
+        setParams(window.location.search);
+        fetchSubjects(params);
+        fetchUsers();
+    }, [params])
+    useEffect(() => {
+        params && params.replace('?', '').split('&').forEach(
+            function(e){
+                const a = e.split('=');
+                if (a[0] === 'q') {
+                    setQ(decodeURIComponent(a[1]));
+                }
+            },
+        );
+    }, [params])
+
     return (
         <Main>
-            <Title marginBottom={25}>Деепричастия</Title>
+            <Title marginBottom={25}>{q}</Title>
             <Filters filters={filters} />
-            { categories.map(category => (
-                <Categories title={category.name} key={category.id} themes={category.items} />
-            )) }
+            {/*{ subjects.map(category => (*/}
+            {/*    <Categories title={category.name} key={category.id} themes={category.items} />*/}
+            {/*)) }*/}
             <ShareButton onClick={() => setActive(true)}>Отправить материал студенту</ShareButton>
             <Modal active={active} setActive={setActive} title={'Отправить пул материалов'}>
                 <ModalCards>
@@ -34,42 +74,21 @@ const MainContent = () => {
                 <ChooseStudents>
                     <Title marginBottom={23}></Title>
                     <StudentList>
-                        <StudentItem>
-                            <Avatar />
-                            <Name>Анна Р.</Name>
-                        </StudentItem>
-                        <StudentItem>
-                            <Avatar />
-                            <Name>Анна Р.</Name>
-                        </StudentItem>
-                        <StudentItem>
-                            <Avatar />
-                            <Name>Анна Р.</Name>
-                        </StudentItem>
-                        <StudentItem>
-                            <Avatar />
-                            <Name>Анна Р.</Name>
-                        </StudentItem>
-                        <StudentItem>
-                            <Avatar />
-                            <Name>Анна Р.</Name>
-                        </StudentItem><StudentItem>
-                        <Avatar />
-                        <Name>Анна Р.</Name>
-                    </StudentItem><StudentItem>
-                        <Avatar />
-                        <Name>Анна Р.</Name>
-                    </StudentItem><StudentItem>
-                        <Avatar />
-                        <Name>Анна Р.</Name>
-                    </StudentItem>
+                        {users.map(user => (
+                            <StudentItem onClick={() => handleUserClick(user.id)} key={user.id} selected={selectedUsers.includes(user.id)}>
+                                <Avatar style={{ backgroundImage: user.avatar }} />
+                                <Name>{user.name}</Name>
+                            </StudentItem>
+                            ))
+                        }
                     </StudentList>
                 </ChooseStudents>
-                <AddComment>
+                <AddComment onSubmit={handleSubmit}>
                     <Title marginBottom={16}>Добавить комментарий</Title>
-                    <Textarea placeholder={'Напишите здесь пожелания по изучению материалов'}></Textarea>
+                    <Textarea placeholder={'Напишите здесь пожелания по изучению материалов'} onChange={handleText}>{message}</Textarea>
+                    <SendButton>Отправить</SendButton>
                 </AddComment>
-                <SendButton>Отправить</SendButton>
+
             </Modal>
         </Main>
     )
