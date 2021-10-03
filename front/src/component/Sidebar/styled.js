@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
     font-weight: bold;
     font-size: 28px;
     line-height: 32px;
@@ -16,6 +16,9 @@ export const Logo = styled.div`
     margin-bottom: 34px;
     position: sticky;
     top: 70px;
+    display: block;
+    width: 100%;
+    text-decoration: none;
 `;
 
 export const Menu = styled.ul`

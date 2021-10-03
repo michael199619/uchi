@@ -1,4 +1,5 @@
 import {createEffect, createEvent, createStore} from "effector";
+import {reset} from "./index";
 
 export const fetchUsers = createEffect(async () => {
     return [
@@ -52,3 +53,4 @@ export const $users = createStore([])
 export const $selectedUsers = createStore([])
     .on(selectUser, (state, id) => state = [...state, id])
     .on(unSelectUser, (state, id) => state.filter(stateItem => stateItem !== id))
+    .on(reset, (state, item) => state = [])

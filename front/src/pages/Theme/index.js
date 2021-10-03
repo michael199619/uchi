@@ -8,7 +8,7 @@ import Modal from "../../component/Modal";
 import CardMini from "../../component/ThemeCard/CardMini";
 import {Avatar} from "../../component/Header/styled";
 import {useStore} from "effector-react";
-import {$categories, $selectedSubjects, $subjects, fetchSubjects} from "../../models";
+import {$categories, $selectedSubjects, $subjects, fetchSubjects, reset} from "../../models";
 import {$selectedUsers, $users, fetchUsers, selectedUsers, selectUser, unSelectUser} from "../../models/users";
 
 
@@ -26,7 +26,10 @@ const MainContent = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      alert('Данные отправленны!')
+      alert('Данные отправленны!');
+      setMessage('');
+      setActive(false);
+      reset();
     }
 
     const handleText = (e) => {
@@ -63,9 +66,9 @@ const MainContent = () => {
         <Main>
             <Title marginBottom={25}>{q}</Title>
             <Filters filters={filters} />
-            {/*{ subjects.map(category => (*/}
-            {/*    <Categories title={category.name} key={category.id} themes={category.items} />*/}
-            {/*)) }*/}
+            { subjects.map(category => (
+                <Categories title={category.name} key={category.id} themes={category.items} />
+            )) }
             <ShareButton onClick={() => setActive(true)}>Отправить материал студенту</ShareButton>
             <Modal active={active} setActive={setActive} title={'Отправить пул материалов'}>
                 <ModalCards>
