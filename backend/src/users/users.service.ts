@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
 import {EntityManager, LessThan, MoreThan} from 'typeorm';
 import {Repository} from 'typeorm';
-import {User} from './entities';
+import {Role, User} from './entities';
 import { UserDto }from './dto/user.dto';
 
 @Injectable()
@@ -10,6 +10,8 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private readonly uRepo: Repository<User>,
+        @InjectRepository(Role)
+        private readonly rRepo: Repository<Role>,
         @InjectEntityManager()
         private entityManager: EntityManager
     ) {
@@ -21,6 +23,10 @@ export class UsersService {
 
     public async getUsers(): Promise<User[]> {
         return await this.uRepo.find();
+    }
+
+    public async getRoles(): Promise<Role[]> {
+        return await this.rRepo.find();
     }
 
     public async getUserById(id: number): Promise<User> {

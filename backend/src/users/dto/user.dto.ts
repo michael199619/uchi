@@ -23,4 +23,10 @@ export class UserDto {
     @IsOptional()
     @Expose()
     lastName: string;
+
+    @ApiProperty()
+    @IsInt()
+    @IsOptional()
+    @Expose()
+    roleId: number;
 }

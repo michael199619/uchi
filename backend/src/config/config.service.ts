@@ -1,5 +1,6 @@
 import {registerAs} from '@nestjs/config';
 import {UsersEntities} from '../users/entities';
+import {CategoriesEntities} from "../find/entities";
 
 export const app = registerAs('app', () => ({
     port: process.env.APP_PORT
@@ -26,7 +27,8 @@ export const db = registerAs('db', () => ({
     host: process.env.POSTGRES_HOST,
     migrationsRun: false,
     entities: [
-        ...UsersEntities
+        ...UsersEntities,
+        ...CategoriesEntities
     ],
     logging: true,
     synchronize: true,

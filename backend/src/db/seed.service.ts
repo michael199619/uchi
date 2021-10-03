@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectEntityManager} from '@nestjs/typeorm';
 import {EntityManager} from 'typeorm';
-import {User} from '../users/entities';
+import {Role, User} from '../users/entities';
 import fixtures from './fixtures';
 
 @Injectable()
@@ -21,7 +21,11 @@ export class SeedService {
 
         console.log('[Creating User started]');
 
-        await this.entityManager.save(User, fixtures.users);
+        await this.entityManager.save(User, fixtures.users as User[]);
+
+        console.log('[Creating Role started]');
+
+        await this.entityManager.save(Role, fixtures.roles as Role[]);
 
         console.log('[Seed success]');
     }

@@ -19,13 +19,16 @@ export class UsersController {
     return await this.usersService.getUserById(id);
   }
 
+  @Get('roles')
+  async getRoles() {
+    return await this.usersService.getRoles();
+  }
 
   @Post('')
   async createUser(@Body() user: UserDto) {
     const {id} = await this.usersService.createUser(user);
     return {id};
   }
-
 
   @Delete(':id')
   async removeUserById(@Param('id') id: number) {

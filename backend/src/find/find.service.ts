@@ -1,16 +1,20 @@
-import {Injectable} from '@nestjs/common';
+import {Body, Get, Injectable, Post} from '@nestjs/common';
 import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import {EntityManager, LessThan, MoreThan} from 'typeorm';
+import {EntityManager, LessThan, MoreThan, Repository} from 'typeorm';
 import {ConfigService} from "@nestjs/config";
 import nodeFetch from "node-fetch";
 import {FindDto} from "./dto/find.dto";
+import {Categories} from "./entities";
 
 @Injectable()
 export class FindService {
     constructor(
         @InjectEntityManager()
         private entityManager: EntityManager,
-        private configService: ConfigService
+        private configService: ConfigService,
+
+        @InjectRepository(Categories)
+        private readonly cRepo: Repository<Categories>,
     ) {
     }
 
@@ -25,5 +29,13 @@ export class FindService {
         console.log(`${googleApi}?key=${googleToken}&cx=${googleCx}&lr=${googleLr}&q=${q}`)
        return await nodeFetch(`${googleApi}?key=${googleToken}&cx=${googleCx}&lr=${googleLr}&q=${q}`)
            .then(res => res.json());
+    }
+
+    saveCategories(categories) {
+        return this.cRepo.save(categories);
+    }
+
+    getCategories() {
+        return this.cRepo.find()
     }
 }
