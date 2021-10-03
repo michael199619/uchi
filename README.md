@@ -41,4 +41,4 @@ sudo docker-compose up
 - Меркулов Артём (@mrkuloff)
 
 ###Смета и сроки:
-![alt](https://ibb.co/m4PpLLx)
+![alt](https://i.ibb.co/w42t99v/image.jpg)
