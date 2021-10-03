@@ -11,8 +11,8 @@ const Categories = ({ title, themes  }) => {
         <CategoriesStyled>
             <Title marginBottom={18}>{title}</Title>
             <ThemesList>
-                { themes.map(theme => (
-                    <ThemeCard id={theme.id} key={theme.id} title={theme.title} image={theme.image} link={theme.link} linkTitle={theme.linkTitle} rating={theme.rating} />
+                { themes.map((theme, index) => (
+                    <ThemeCard id={theme.title + index} key={theme.title + index} title={theme.title} image={theme.image} link={theme.link} linkTitle={theme.linkTitle} rating={theme.rating} />
                 )) }
 
             </ThemesList>

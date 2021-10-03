@@ -13,10 +13,6 @@ export const filters = [
         name: 'Видео',
     },
     {
-        id: 2,
-        name: 'Аудион',
-    },
-    {
         id: 3,
         name: 'Статьи',
     },
