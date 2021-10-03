@@ -31,8 +31,9 @@ export class FindService {
         const {q} = find;
 
         const categoriesIds = await this.cRepo.find({
-            id: In(find.categoriesIds)
+            id: Array.isArray(find.categoriesIds) ? In(find.categoriesIds) : find.categoriesIds
         });
+
 
         return await Promise.all(categoriesIds.map(async (e) => {
            let url = `${googleApi}?key=${googleToken}&cx=${googleCx}&lr=${googleLr}&q=${q}`;
@@ -49,19 +50,23 @@ export class FindService {
                url = `${url}&searchType=${e.searchType}`;
            }
 
+           console.log(url)
+
            return await nodeFetch(url).then(async (res) => {
                const data = await res.json();
 
                return {
+                   ...data,
                    id: e.id,
                    name: e.name,
-                   items: data.items.map((item) => ({
+                   items: (data.items || []).map((item) => ({
                        title: item.title,
                        link: item.link,
                        linkTitle: item.htmlTitle,
                        snipet: item.snipet,
                        pagemap: item.pagemap,
                        videoobject: item.videoobject,
+                       image: item.image,
                        rating: 0,
                        images: (item.cse_image || []).map(({src}) => src)
                    }))
