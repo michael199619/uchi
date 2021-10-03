@@ -38,7 +38,6 @@ const MainContent = () => {
     }
 
     const handleUserClick = (id) => {
-        console.log(id);
         selectedUsers.includes(id);
       if (selectedUsers.includes(id)) {
           unSelectUser(id)
@@ -50,11 +49,8 @@ const MainContent = () => {
     useEffect(() => {
 
         setParams(window.location.search);
-        console.log(types.join('&categoriesIds='))
-        console.log(types)
         const typesParam = [];
         types.forEach(type => typesParam.push('&categoriesIds=' + type.id))
-        console.log(typesParam)
         if (params && typesParam) {
             fetchSubjects(params + typesParam.join(''));
         }
