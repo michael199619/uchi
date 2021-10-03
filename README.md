@@ -39,3 +39,6 @@ sudo docker-compose up
 - Асатов Родион (@RodionAs)
 - Масютина Ирина (@imasyutina)
 - Меркулов Артём (@mrkuloff)
+
+###Смета и сроки:
+![alt](https://ibb.co/m4PpLLx)
