@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, Param, Post, Query, Req, UploadedFile, UseInterceptors} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
-import {ApiTags, ApiBody} from "@nestjs/swagger";
+import {ApiTags, ApiBody, ApiQuery} from "@nestjs/swagger";
 
 @ApiTags('user')
 @Controller('users')
@@ -15,7 +15,8 @@ export class UsersController {
   }
 
   @Get()
-  async getUsers(@Query('role') role?: string) {
+  @ApiQuery({name:'role',required: false})
+  async getUsers( @Query('role') role: string = '') {
     return await this.usersService.getUsers(role);
   }
 

@@ -6,21 +6,15 @@ import {
 import {Expose, Transform, Type} from 'class-transformer';
 import {ApiProperty} from "@nestjs/swagger";
 
-export class CategoriesDto {
+export class SubjectDto {
     @ApiProperty({type: 'string'})
     @IsString()
     @Expose()
     name: string;
 
-    @ApiProperty({type: 'string'})
-    @IsString()
+    @ApiProperty({type: 'string', isArray: true})
+    @IsString({each: true})
     @IsOptional()
     @Expose()
-    fileType?: string;
-
-    @ApiProperty({type: 'string'})
-    @IsString()
-    @IsOptional()
-    @Expose()
-    searchType?: string;
+    tags: string[];
 }

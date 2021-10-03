@@ -3,6 +3,7 @@ import {FindService} from "./find.service";
 import {ApiTags} from "@nestjs/swagger";
 import {FindDto} from "./dto/find.dto";
 import {CategoriesDto} from "./dto/categories.dto";
+import {SubjectDto} from "./dto/subject.dto";
 
 @ApiTags('find')
 @Controller('find')
@@ -32,5 +33,22 @@ export class FindController {
   @Delete('categories')
   deleteCategories(@Query('id') id: number) {
     return this.findService.removeCategories(id)
+  }
+
+  @Post('subject')
+  saveSubject(
+      @Body() subject: SubjectDto
+  ) {
+    return this.findService.saveSubject(subject)
+  }
+
+  @Get('subject')
+  getSubject() {
+    return this.findService.getSubject()
+  }
+
+  @Delete('subject')
+  deleteSubject(@Query('id') id: number) {
+    return this.findService.removeSubject(id)
   }
 }

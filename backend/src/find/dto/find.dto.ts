@@ -18,5 +18,5 @@ export class FindDto {
     @IsString({each: true})
     @IsOptional()
     @Expose()
-    tagIds: number[];
+    categoriesIds: number[];
 }

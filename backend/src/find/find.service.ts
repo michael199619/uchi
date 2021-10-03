@@ -4,7 +4,7 @@ import {EntityManager, In, LessThan, MoreThan, Repository} from 'typeorm';
 import {ConfigService} from "@nestjs/config";
 import nodeFetch from "node-fetch";
 import {FindDto} from "./dto/find.dto";
-import {Categories} from "./entities";
+import {Categories, Subjects} from "./entities";
 
 @Injectable()
 export class FindService {
@@ -15,6 +15,9 @@ export class FindService {
 
         @InjectRepository(Categories)
         private readonly cRepo: Repository<Categories>,
+
+        @InjectRepository(Subjects)
+        private readonly sRepo: Repository<Subjects>,
     ) {
     }
 
@@ -27,14 +30,11 @@ export class FindService {
         } = this.configService.get('api');
         const {q} = find;
 
-        const tags = await this.cRepo.find({
-            id: In(find.tagIds)
+        const categoriesIds = await this.cRepo.find({
+            id: In(find.categoriesIds)
         });
 
-        console.log(find.tagIds)
-
-
-        return await Promise.all(tags.map(async (e) => {
+        return await Promise.all(categoriesIds.map(async (e) => {
            let url = `${googleApi}?key=${googleToken}&cx=${googleCx}&lr=${googleLr}&q=${q}`;
 
            if (e.fileType) {
@@ -75,5 +75,17 @@ export class FindService {
 
     async removeCategories(id: number) : Promise<void> {
         await this.cRepo.delete(id);
+    }
+
+    saveSubject(subject) {
+        return this.sRepo.save(subject);
+    }
+
+    getSubject() {
+        return this.sRepo.find()
+    }
+
+    async removeSubject(id: number) : Promise<void> {
+        await this.sRepo.delete(id);
     }
 }

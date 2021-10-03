@@ -22,7 +22,14 @@ export class UsersService {
     }
 
     public async getUsers(role?: string): Promise<User[]> {
-        return await this.uRepo.find();
+        const users = this.entityManager.createQueryBuilder(User, 'user');
+
+        if (role) {
+            users.leftJoinAndSelect(Role, 'role', 'roleId = id')
+                .where('role.id = :role', {role});
+        }
+
+        return await users.getMany();
     }
 
     public async getRoles(): Promise<Role[]> {
