@@ -4,7 +4,7 @@ import { Logo, Menu, MenuItem, MenuItemLink } from "./styled";
 const Sidebar = () => {
     return (
         <>
-            <Logo>ЛОГО</Logo>
+            <Logo to={'/'}>ЛОГО</Logo>
             <Menu>
                 <MenuItem>
                     <MenuItemLink to={'#'}>

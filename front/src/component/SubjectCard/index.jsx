@@ -3,15 +3,15 @@ import Title from "../kit/Title";
 import {SubjectCardStyled, TagsItem, TagsItemLink, TagsList} from "./styled";
 
 
-const SubjectCard = ({ name, themes }) => {
-
+const SubjectCard = ({ name, tags, categoryId }) => {
+    console.log(tags)
     return (
         <SubjectCardStyled>
             <Title as={'h2'} marginBottom={'18px'}>{name}</Title>
             <TagsList>
-                {themes && themes.map(tag => (
+                {tags && tags.map(tag => (
                     <TagsItem key={tag.id}>
-                        <TagsItemLink to={'theme/' + tag.id}>{tag.name}</TagsItemLink>
+                        <TagsItemLink to={'/find?q=' + tag}>{tag}</TagsItemLink>
                     </TagsItem>
                 ))}
             </TagsList>

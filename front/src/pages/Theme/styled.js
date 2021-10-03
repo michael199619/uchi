@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 
 export const Main = styled.main`
@@ -38,8 +38,8 @@ export const ModalCards = styled.div`
 export const ChooseStudents = styled.div`
     margin-bottom: 20px;
 `;
-export const AddComment = styled.div`
-    margin-bottom: 50px;
+export const AddComment = styled.form`
+    
 `;
 export const SendButton = styled.button`
     display: block;
@@ -51,9 +51,10 @@ export const SendButton = styled.button`
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 9px;
-    margin: 0 auto;
+    margin: 50px auto 0;
 `;
 export const Textarea = styled.textarea`
+    padding: 15px;
     background: #FFFFFF;
     border: 1px solid #000000;
     box-sizing: border-box;
@@ -63,6 +64,9 @@ export const Textarea = styled.textarea`
 `;
 export const StudentItem = styled.div`
     margin-right: 21px;
+    ${props => props.selected ? css`
+        border: 1px solid green;
+    ` : ''};
 `;
 
 export const Name = styled.p`

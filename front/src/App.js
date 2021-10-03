@@ -9,7 +9,7 @@ import LayoutWithtSidebar from "./component/layouts/LayoutWithSidebar";
 function App() {
     const Content = () => (
         <Switch>
-            <Route path="/theme/:id" component={Theme} />
+            <Route path="/find" component={Theme} />
             <Route path="/" component={Home} />
         </Switch>
     )
