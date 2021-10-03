@@ -3,82 +3,24 @@ import {
 } from 'class-validator';
 
 import {Expose, Transform, Type} from 'class-transformer';
+import {ApiProperty} from "@nestjs/swagger";
 
-export enum Education {
-    SECONDARY,
-    SECONDARY_SPECIAL,
-    HIGHER
-}
-
-export class PersonDataFormat {
+export class UserDto {
+    @ApiProperty({minimum: 1})
     @IsNumber()
     @IsOptional()
     @Expose()
-    working_years?: number;
+    age: number;
 
-    @IsNumber()
-    @IsOptional()
-    @Expose()
-    salary_revision_frequency?: number;
-
-    @IsNumber()
-    @IsOptional()
-    @Expose()
-    age?: number;
-
-    @IsString()
-    @IsEnum(Education)
-    @IsOptional()
-    @Expose()
-    education?: Education;
-
-    @IsNumber()
-    @IsOptional()
-    @Expose()
-    salary?: number;
-
-    @IsBoolean()
-    @IsOptional()
-    @Expose()
-    have_children?: boolean;
-
-    @IsBoolean()
-    @IsOptional()
-    @Expose()
-    have_mentor?: boolean
-}
-
-export class StaffQuery {
+    @ApiProperty({type: 'string'})
     @IsString()
     @IsOptional()
     @Expose()
-    data_from?: Date;
+    firstName: string;
 
+    @ApiProperty({type: 'string'})
     @IsString()
     @IsOptional()
     @Expose()
-    data_to?: Date;
-
-    @IsObject()
-    @Expose()
-    @ValidateNested()
-    @Type(() => PersonDataFormat)
-    filter: PersonDataFormat;
-
-    @IsInt()
-    @IsOptional()
-    @Expose()
-    take: number;
-
-    @IsInt()
-    @IsOptional()
-    @Expose()
-    skip: number;
-}
-
-export class StaffResponse {
-    data_from?: Date;
-    data_to?: Date;
-    filter: PersonDataFormat;
-    staff: PersonDataFormat[];
+    lastName: string;
 }

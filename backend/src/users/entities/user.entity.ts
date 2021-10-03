@@ -5,12 +5,14 @@ import {
 } from 'typeorm';
 
 import { BaseEntity } from '../../shared/entities';
+import {Role, USER_ROLES, UserRoles} from "./role.entity";
 
-export enum Education {
-  SECONDARY,
-  SECONDARY_SPECIAL,
-  HIGHER
-}
+export const USER_STATUS = {
+  ACTIVE: 'TEACHER',
+  NOACTIVE: 'NOACTIVE'
+};
+
+export type UserStatus = keyof typeof USER_STATUS;
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -20,53 +22,36 @@ export class User extends BaseEntity {
   @Column({
     type: 'numeric', nullable: true
   })
-  public working_years: number;
-
-  @Column({
-    type: 'numeric', nullable: true
-  })
-  public salary_revision_frequency: number;
-
-  @Column({
-    type: 'numeric', nullable: true
-  })
   public age: number;
 
   @Column({
-    type: 'varchar', enum: Education, nullable: true
+    type: 'varchar', nullable: true
   })
-  public education: Education;
+  public firstName: string;
 
   @Column({
-    type: 'numeric', nullable: true
+    type: 'varchar', nullable: true
   })
-  public salary: number;
+  public lastName: string;
+
+  @Column('int', {nullable: true, unsigned: true})
+  roleId: number;
+  role: Role;
 
   @Column({
-    type: 'boolean', nullable: true
+    type: 'varchar', enum: USER_STATUS, default: USER_STATUS.NOACTIVE, nullable: true
   })
-  public have_children: boolean;
-
-  @Column({
-    type: 'boolean', nullable: true
-  })
-  public have_mentor: boolean;
-
-  @Column({
-    type: 'json', nullable: true
-  })
-  public params: object;
+  status: UserStatus;
 
   toJSON() {
     return {
       id: this.id,
-      working_years: this.working_years,
-      salary_revision_frequency: this.salary_revision_frequency,
       age: this.age,
-      education: this.education,
-      salary: this.salary,
-      have_children: this.have_children,
-      have_mentor: this.have_mentor,
+      roleId: this.roleId,
+      role: this.role,
+      status: this.status,
+      firstName: this.firstName,
+      lastName: this.lastName,
     };
   }
 }

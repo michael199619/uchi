@@ -1,7 +1,8 @@
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {UsersModule} from './users/users.module';
-import {AnalizeModule} from './analize/analize.module';
+import {FindModule} from './find/find.module';
+import {AuthModule} from './auth/auth.module';
 import {AppConfigModule} from './config/config.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {ConnectionOptions} from 'typeorm';
@@ -15,8 +16,9 @@ import {SeedService} from './db/seed.service';
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => configService.get<ConnectionOptions>('db'),
         }),
+        AuthModule,
          UsersModule,
-         AnalizeModule
+         FindModule,
     ],
     controllers: [],
     providers: [SeedService],

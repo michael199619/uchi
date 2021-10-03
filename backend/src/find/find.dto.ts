@@ -4,6 +4,6 @@ import {
 
 import {Expose, Transform, Type} from 'class-transformer';
 
-export class AnalizeDto {
+export class FindDto {
 
 }
